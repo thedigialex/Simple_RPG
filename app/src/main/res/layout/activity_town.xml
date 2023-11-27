@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:onClick="showQuest"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showBank"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/PopUpMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/main_color"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <Button
+            android:id="@+id/ClosePopUpMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ClosePopUpMenu"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/BankPopUp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ClosePopUpMenu">
+
+            <TextView
+                android:id="@+id/BankTitle"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/BankHeader"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/BankSwitchText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/BankSwitch"
+                app:layout_constraintEnd_toStartOf="@+id/BankSwitch"
+                app:layout_constraintStart_toStartOf="@+id/BankHeader"
+                app:layout_constraintTop_toTopOf="@+id/BankSwitch" />
+
+            <Switch
+                android:id="@+id/BankSwitch"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:onClick="setUpBankDisplay"
+                android:showText="false"
+                android:splitTrack="false"
+                android:textOff="Deposite"
+                android:textOn="Withdraw"
+                app:layout_constraintBottom_toTopOf="@+id/BankEdit"
+                app:layout_constraintEnd_toEndOf="@+id/BankHeader"
+                app:layout_constraintHorizontal_bias="0.481"
+                app:layout_constraintStart_toEndOf="@+id/BankSwitchText"
+                app:layout_constraintTop_toBottomOf="@+id/BankHeader" />
+
+            <TextView
+                android:id="@+id/BankHeader"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/BankSwitchText"
+                app:layout_constraintEnd_toEndOf="@+id/BankTitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/BankTitle"
+                app:layout_constraintTop_toBottomOf="@+id/BankTitle" />
+
+            <EditText
+                android:id="@+id/BankEdit"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintBottom_toTopOf="@+id/BankButton"
+                app:layout_constraintEnd_toEndOf="@+id/BankSwitch"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/BankSwitchText"
+                app:layout_constraintTop_toBottomOf="@+id/BankSwitchText" />
+
+            <Button
+                android:id="@+id/BankButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:onClick="bankSubmission"
+                android:text="@string/button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/BankEdit"
+                app:layout_constraintHorizontal_bias="0.537"
+                app:layout_constraintStart_toStartOf="@+id/BankEdit"
+                app:layout_constraintTop_toBottomOf="@+id/BankEdit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/QuestPopUp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ClosePopUpMenu">
+
+            <Button
+                android:id="@+id/QuestButtonCompleted"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="showQuest"
+                android:text="Button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/QuestButtonUncompleted"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/QuestButtonUncompleted"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="showQuest"
+                android:text="Button"
+                app:layout_constraintEnd_toStartOf="@+id/QuestButtonCompleted"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/QuestButtonCompleted">
+
+                <LinearLayout
+                    android:id="@+id/PopUpLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

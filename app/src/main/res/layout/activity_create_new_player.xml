@@ -1,0 +1,194 @@
+<!-- res/layout/player_creation_layout.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Player Name"
+        android:inputType="text"/>
+    <Spinner
+        android:id="@+id/spinnerClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:entries="@array/class_array"/>
+
+    <Spinner
+        android:id="@+id/spinnerRace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:entries="@array/race_array"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Other" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/StatPointView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remaining Points: 12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/STRTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="STR: 1"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/STRIncrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/increase_button"
+            android:onClick="IncreaseStat"
+            android:tag="0" />
+
+        <Button
+            android:id="@+id/STRDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/decrease_button"
+            android:onClick="DecreaseStat"
+            android:tag="0" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/DEXTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="DEX: 1"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/DEXIncrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/increase_button"
+            android:onClick="IncreaseStat"
+            android:tag="1" />
+
+        <Button
+            android:id="@+id/DEXDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/decrease_button"
+            android:onClick="DecreaseStat"
+            android:tag="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/INTTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="INT: 1"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/INTIncrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/increase_button"
+            android:onClick="IncreaseStat"
+            android:tag="2" />
+
+        <Button
+            android:id="@+id/INTDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/decrease_button"
+            android:onClick="DecreaseStat"
+            android:tag="2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ENDTextView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="END: 1"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/ENDIncrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/increase_button"
+            android:onClick="IncreaseStat"
+            android:tag="3" />
+
+        <Button
+            android:id="@+id/ENDDecrease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/decrease_button"
+            android:onClick="DecreaseStat"
+            android:tag="3" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/FinishButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="createNewPlayer"
+        android:text="Button" />
+
+</LinearLayout>

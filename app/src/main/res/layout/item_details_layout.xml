@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    android:elevation="4dp">
+
+    <ImageView
+        android:id="@+id/ItemImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ItemRarityView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/ItemNameView"
+        app:layout_constraintStart_toStartOf="@+id/ItemNameView"
+        app:layout_constraintTop_toBottomOf="@+id/ItemNameView" />
+
+    <TextView
+        android:id="@+id/ItemNameView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/ItemImageView"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="@+id/ItemImageView"
+        app:layout_constraintTop_toBottomOf="@+id/ItemImageView" />
+
+    <TextView
+        android:id="@+id/ItemTypeView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/ItemPriceView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ItemRarityView" />
+
+    <TextView
+        android:id="@+id/ItemPriceView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ItemTypeView"
+        app:layout_constraintTop_toTopOf="@+id/ItemTypeView" />
+
+    <Button
+        android:id="@+id/EquipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ButtonThree"
+        app:layout_constraintTop_toBottomOf="@+id/ItemPriceView" />
+
+    <Button
+        android:id="@+id/TrashButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trash"
+        app:layout_constraintEnd_toStartOf="@+id/ButtonTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ButtonTwo" />
+
+    <Button
+        android:id="@+id/ButtonTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/ButtonThree"
+        app:layout_constraintStart_toEndOf="@+id/TrashButton"
+        app:layout_constraintTop_toTopOf="@+id/ButtonThree" />
+
+    <Button
+        android:id="@+id/ButtonThree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintEnd_toStartOf="@+id/EquipButton"
+        app:layout_constraintStart_toEndOf="@+id/ButtonTwo"
+        app:layout_constraintTop_toTopOf="@+id/EquipButton" />
+
+    <Button
+        android:id="@+id/ButtonClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
