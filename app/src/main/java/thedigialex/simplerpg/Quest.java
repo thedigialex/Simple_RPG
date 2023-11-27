@@ -9,12 +9,19 @@ public class Quest {
     long questId;
     String name;
     String description;
+    int levelRequirement;
     int questType;
     int questRequiredAmount;
     int rewardGold;
     int playerId;
     boolean isCompleted;
 
+    public int getLevelRequirement() {
+        return levelRequirement;
+    }
+    public void setLevelRequirement(int levelRequirement) {
+        this.levelRequirement = levelRequirement;
+    }
     public long getQuestId() {
         return questId;
     }

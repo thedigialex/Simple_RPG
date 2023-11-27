@@ -21,17 +21,16 @@ public class TownActivity extends AppCompatActivity {
         playerControls = ((PlayerControllerManager) getApplication()).getPlayerControls();
         if(playerControls != null) {
             playerControls.UpdateViews(findViewById(R.id.header), findViewById(R.id.footer), "Town", this);
-            playerControls.createQuestControls(playerControls.player.getPlayerId(), getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
         }
         else {
             Intent intent = getIntent();
             int playerId = intent.getIntExtra("playerId", -1);
             playerControls = new PlayerControls(playerId, findViewById(R.id.header), findViewById(R.id.footer),this, getApplicationContext(), "Town");
-            playerControls.createQuestControls(playerId, getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
             ((PlayerControllerManager) getApplication()).setPlayerControls(playerControls);
         }
     }
     public void showQuest(View view) {
+        playerControls.createQuestControls(getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
         if(!menuOpen){
             whichPopUpToShow(1);
             playerControls.questControls.addQuestsSlot();

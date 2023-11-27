@@ -1,6 +1,7 @@
 package thedigialex.simplerpg;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -22,8 +23,12 @@ public class Player {
     int gold;
     int bankGold;
     int inventorySize;
+    @Ignore
+    AppDatabase appDatabase;
 
-
+    public void updatePlayer(Player player) {
+        new Thread(() -> appDatabase.playerDao().update(player)).start();
+    }
     public int getPlayerId() {
         return playerId;
     }

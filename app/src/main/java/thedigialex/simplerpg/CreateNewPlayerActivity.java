@@ -121,6 +121,7 @@ public class CreateNewPlayerActivity extends AppCompatActivity {
         quest1.setRewardGold(50);
         quest1.setIsCompleted(false);
         quest1.setQuestType(1);
+        quest1.setLevelRequirement(1);
         quest1.setQuestRequiredAmount(10);
         appDatabase.questDao().insert(quest1);
         Quest quest2 = new Quest();
@@ -130,6 +131,7 @@ public class CreateNewPlayerActivity extends AppCompatActivity {
         quest2.setRewardGold(75);
         quest2.setIsCompleted(false);
         quest2.setQuestType(1);
+        quest2.setLevelRequirement(2);
         quest2.setQuestRequiredAmount(15);
         appDatabase.questDao().insert(quest2);
         Quest quest3 = new Quest();
@@ -139,6 +141,7 @@ public class CreateNewPlayerActivity extends AppCompatActivity {
         quest3.setRewardGold(100);
         quest3.setIsCompleted(false);
         quest3.setQuestType(1);
+        quest3.setLevelRequirement(3);
         quest3.setQuestRequiredAmount(20);
         appDatabase.questDao().insert(quest3);
     }

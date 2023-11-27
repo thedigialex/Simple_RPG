@@ -31,9 +31,13 @@ public class PlayerControls {
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "simpleRPGDatabase").build();
         executor.execute(() -> {
             player = appDatabase.playerDao().getPlayerById(playerId);
+            player.appDatabase = appDatabase;
             activity.runOnUiThread(() -> executor.execute(() -> {
                 inventoryControls = new InventoryControls(appDatabase.itemDao().getItemsByPlayerId(playerId), appDatabase.skillDao().getSkillsByPlayerId(playerId), appDatabase, player.getInventorySize());
+                questControls = new QuestControls(context, player);
+                questControls.quests = appDatabase.questDao().getQuestsByPlayerId(player.getPlayerId());
                 activity.runOnUiThread(() -> executor.execute(() -> activity.runOnUiThread(() -> {
+
                     setUp(currentLocation);
                 })));
             }));
@@ -50,12 +54,10 @@ public class PlayerControls {
         footerControls.initViews(currentLocation);
         updateHeader();
     }
-    public void createQuestControls(int playerId, LayoutInflater inflater, LinearLayout PopUpLinearLayout, ConstraintLayout PopUpMenu) {
-        questControls = new QuestControls(context, playerId);
+    public void createQuestControls( LayoutInflater inflater, LinearLayout PopUpLinearLayout, ConstraintLayout PopUpMenu) {
         questControls.inflater = inflater;
         questControls.PopUpLinearLayout = PopUpLinearLayout;
         questControls.PopUpMenu = PopUpMenu;
-        executor.execute(() -> questControls.quests = appDatabase.questDao().getQuestsByPlayerId(playerId));
     }
     public void updateHeader() {
         String nameAndTitle = player.getTitle() + " " + player.getName();
