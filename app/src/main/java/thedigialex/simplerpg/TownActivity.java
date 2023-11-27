@@ -18,12 +18,19 @@ public class TownActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_town);
-        Intent intent = getIntent();
-        int playerId = intent.getIntExtra("playerId", -1);
-        playerControls = new PlayerControls(playerId, findViewById(R.id.header), findViewById(R.id.footer),this, getApplicationContext(), "Town");
-        playerControls.createQuestControls(playerId, getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
+        playerControls = ((PlayerControllerManager) getApplication()).getPlayerControls();
+        if(playerControls != null) {
+            playerControls.UpdateViews(findViewById(R.id.header), findViewById(R.id.footer), "Town", this);
+            playerControls.createQuestControls(playerControls.player.getPlayerId(), getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
+        }
+        else {
+            Intent intent = getIntent();
+            int playerId = intent.getIntExtra("playerId", -1);
+            playerControls = new PlayerControls(playerId, findViewById(R.id.header), findViewById(R.id.footer),this, getApplicationContext(), "Town");
+            playerControls.createQuestControls(playerId, getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
+            ((PlayerControllerManager) getApplication()).setPlayerControls(playerControls);
+        }
     }
-
     public void showQuest(View view) {
         if(!menuOpen){
             whichPopUpToShow(1);
@@ -39,7 +46,7 @@ public class TownActivity extends AppCompatActivity {
         Item item = new Item(0,0, "Placeholder", "Weapon", playerControls.player.getPlayerId(), false, true,1);
         playerControls.inventoryControls.addItem(item);
 
-        Skill skill = new Skill("Placeholder", "Holding",  playerControls.player.getPlayerId(), false);
+        Skill skill = new Skill(0,"Placeholder", "Holding",  playerControls.player.getPlayerId(), false);
         playerControls.inventoryControls.addSkill(skill);
     }
     public void bankSubmission(View view) {

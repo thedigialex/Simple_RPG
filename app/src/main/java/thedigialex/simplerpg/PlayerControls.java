@@ -22,24 +22,33 @@ public class PlayerControls {
     QuestControls questControls;
     AppDatabase appDatabase;
     final Executor executor = Executors.newSingleThreadExecutor();
-    Activity activity;
     Context context;
 
     public PlayerControls(int playerId, View headerView, View footerView, Activity activity, Context context, String currentLocation) {
-        this.activity = activity;
         this.context = context;
         headerControls = new HeaderControls(headerView);
+        footerControls = new FooterControls(footerView, 0, activity, currentLocation);
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "simpleRPGDatabase").build();
         executor.execute(() -> {
             player = appDatabase.playerDao().getPlayerById(playerId);
             activity.runOnUiThread(() -> executor.execute(() -> {
                 inventoryControls = new InventoryControls(appDatabase.itemDao().getItemsByPlayerId(playerId), appDatabase.skillDao().getSkillsByPlayerId(playerId), appDatabase, player.getInventorySize());
                 activity.runOnUiThread(() -> executor.execute(() -> activity.runOnUiThread(() -> {
-                    updateHeader();
-                    setUpFooter(footerView, activity, currentLocation);
+                    setUp(currentLocation);
                 })));
             }));
         });
+    }
+    public void UpdateViews(View headerView, View footerView, String currentLocation, Activity activity) {
+        footerControls.footerView = footerView;
+        footerControls.activity = activity;
+        headerControls.headerView = headerView;
+        setUp(currentLocation);
+    }
+    public void setUp(String currentLocation) {
+        headerControls.initViews();
+        footerControls.initViews(currentLocation);
+        updateHeader();
     }
     public void createQuestControls(int playerId, LayoutInflater inflater, LinearLayout PopUpLinearLayout, ConstraintLayout PopUpMenu) {
         questControls = new QuestControls(context, playerId);
@@ -52,9 +61,6 @@ public class PlayerControls {
         String nameAndTitle = player.getTitle() + " " + player.getName();
         String raceAndClass = player.getRace() + " " + player.getJob();
         headerControls.setUpViews(nameAndTitle, 0, 0, player.getLevel(), player.getExp(), raceAndClass);
-    }
-    private void setUpFooter(View footerView, Activity activity, String currentLocation) {
-        footerControls = new FooterControls(footerView, player.getPlayerId(), activity, currentLocation);
     }
     public int[] getPlayerStats() {
         int[] stats = new int[9];

@@ -11,11 +11,13 @@ public class HeaderControls {
     TextView playerLevel;
     TextView playerGold;
     ProgressBar levelProgressBarHeader;
+    View headerView;
 
     public HeaderControls(View headerView) {
-        initViews(headerView);
+        this.headerView = headerView;
+        initViews();
     }
-    private void initViews(View headerView) {
+    public void initViews() {
         profileImage = headerView.findViewById(R.id.profile_image);
         playerName = headerView.findViewById(R.id.player_name);
         playerGold = headerView.findViewById(R.id.player_money);

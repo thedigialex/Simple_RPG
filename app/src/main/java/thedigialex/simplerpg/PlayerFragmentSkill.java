@@ -36,6 +36,10 @@ public class PlayerFragmentSkill extends Fragment {
         LinearLayout mainLayout = rootView.findViewById(R.id.mainLayout);
         setUpButtons(rootView);
         skills = playerControls.inventoryControls.skills;
+        int size = skills.size();
+        topTextViews = new TextView[size];
+        bottomTextViews = new TextView[size];
+        itemImageViews = new ImageView[size];
         regenerateInventoryView(mainLayout, inflater, "Equipped");
         return rootView;
     }

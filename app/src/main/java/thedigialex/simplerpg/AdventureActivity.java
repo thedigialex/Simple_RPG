@@ -18,9 +18,8 @@ public class AdventureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adventure);
-        Intent intent = getIntent();
-        int playerId = intent.getIntExtra("playerId", -1);
-        playerControls = new PlayerControls(playerId, findViewById(R.id.header), findViewById(R.id.footer),this, getApplicationContext(), "Adventure");
+        playerControls = ((PlayerControllerManager) getApplication()).getPlayerControls();
+        playerControls.UpdateViews(findViewById(R.id.header), findViewById(R.id.footer), "Adventure", this);
     }
     public void Step(View view) {
         ConstraintLayout TextEvent = findViewById(R.id.TextEvent);

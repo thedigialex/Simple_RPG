@@ -10,12 +10,15 @@ public class FooterControls {
     Button middleButton;
     Button rightButton;
     int playerId;
+    View footerView;
+    Activity activity;
     public FooterControls(View footerView, int playerId, Activity activity, String currentLocation) {
         this.playerId = playerId;
-        initViews(footerView, currentLocation);
-        setupButtons(activity, currentLocation);
+        this.footerView = footerView;
+        this.activity = activity;
+        initViews(currentLocation);
     }
-    private void initViews(View footerView, String currentLocation) {
+    public void initViews(String currentLocation) {
         leftButton = footerView.findViewById(R.id.button1);
         middleButton = footerView.findViewById(R.id.button2);
         rightButton = footerView.findViewById(R.id.button3);
@@ -36,8 +39,9 @@ public class FooterControls {
                 rightButton.setBackgroundResource(R.drawable.adventure_button);
                 break;
         }
+        setupButtons(currentLocation);
     }
-    public void setupButtons(Activity activity, String currentLocation) {
+    public void setupButtons(String currentLocation) {
         leftButton.setOnClickListener(v -> {
             if(!currentLocation.equals("Player")) {
                 Intent intent = new Intent(activity, PlayerInfoActivity.class);

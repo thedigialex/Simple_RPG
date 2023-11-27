@@ -18,19 +18,17 @@ public class InventoryControls {
     }
     public void addItem(Item item) {
         for (Item existingItem : items) {
-            if (existingItem.getItemKey() == item.getItemKey()) {
-                if(existingItem.getStack() < existingItem.getMaxStack()) {
-                    existingItem.setStack(existingItem.getStack()+1);
+            if (existingItem.getItemKey()  == item.getItemKey()) {
+                if (existingItem.getStack() < existingItem.getMaxStack()) {
+                    existingItem.setStack(existingItem.getStack() + 1);
                     updateItem(existingItem);
-                    break;
-                } else if(maxInventorySize < items.size()) {
-                    new Thread(() -> appDatabase.itemDao().insert(item)).start();
-                    items.add(item);
-                    break;
-                } else {
-                    break;
                 }
+                break;
             }
+        }
+        if (maxInventorySize > items.size()) {
+            new Thread(() -> appDatabase.itemDao().insert(item)).start();
+            items.add(item);
         }
     }
     public void updateItem(Item item) {
@@ -41,8 +39,17 @@ public class InventoryControls {
         items.remove(item);
     }
     public void addSkill(Skill skill) {
-        new Thread(() -> appDatabase.skillDao().insert(skill)).start();
-        skills.add(skill);
+        boolean add = true;
+        for (Skill existingSkill : skills) {
+            if (existingSkill.getSkillKey() == skill.getSkillKey()) {
+                add = false;
+                break;
+            }
+        }
+        if(add) {
+            new Thread(() -> appDatabase.skillDao().insert(skill)).start();
+            skills.add(skill);
+        }
     }
     public void updateSkill(Skill skill) {
         new Thread(() -> appDatabase.skillDao().update(skill)).start();

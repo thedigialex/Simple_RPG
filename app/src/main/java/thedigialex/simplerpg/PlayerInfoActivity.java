@@ -13,9 +13,9 @@ public class PlayerInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_info);
-        Intent intent = getIntent();
-        int playerId = intent.getIntExtra("playerId", -1);
-        playerControls = new PlayerControls(playerId, findViewById(R.id.header), findViewById(R.id.footer),this, getApplicationContext(), "PlayerInfo");
+
+        playerControls = ((PlayerControllerManager) getApplication()).getPlayerControls();
+        playerControls.UpdateViews(findViewById(R.id.header), findViewById(R.id.footer), "PlayerInfo", this);
         SetUpActivityData();
     }
     public void SetUpActivityData() {
