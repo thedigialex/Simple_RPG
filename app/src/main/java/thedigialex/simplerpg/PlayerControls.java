@@ -36,10 +36,7 @@ public class PlayerControls {
                 inventoryControls = new InventoryControls(appDatabase.itemDao().getItemsByPlayerId(playerId), appDatabase.skillDao().getSkillsByPlayerId(playerId), appDatabase, player.getInventorySize());
                 questControls = new QuestControls(context, player);
                 questControls.quests = appDatabase.questDao().getQuestsByPlayerId(player.getPlayerId());
-                activity.runOnUiThread(() -> executor.execute(() -> activity.runOnUiThread(() -> {
-
-                    setUp(currentLocation);
-                })));
+                activity.runOnUiThread(() -> executor.execute(() -> activity.runOnUiThread(() -> setUp(currentLocation))));
             }));
         });
     }
@@ -62,7 +59,7 @@ public class PlayerControls {
     public void updateHeader() {
         String nameAndTitle = player.getTitle() + " " + player.getName();
         String raceAndClass = player.getRace() + " " + player.getJob();
-        headerControls.setUpViews(nameAndTitle, 0, 0, player.getLevel(), player.getExp(), raceAndClass);
+        headerControls.setUpViews(nameAndTitle, player.getGold(), 0, player.getLevel(), player.getExp(), raceAndClass);
     }
     public int[] getPlayerStats() {
         int[] stats = new int[9];

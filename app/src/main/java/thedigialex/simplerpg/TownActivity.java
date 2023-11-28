@@ -42,7 +42,14 @@ public class TownActivity extends AppCompatActivity {
         }
 
         //Add item example
-        Item item = new Item(0,0, "Placeholder", "Weapon", playerControls.player.getPlayerId(), false, true,1);
+        Item item = new Item(0,0, "Weapon", "Weapon", playerControls.player.getPlayerId(), false, true,1);
+        item.stack =1;
+        playerControls.inventoryControls.addItem(item);
+        item = new Item(1,0, "Craft", "CraftMaterial", playerControls.player.getPlayerId(), false, false,10);
+        item.stack =1;
+        playerControls.inventoryControls.addItem(item);
+        item = new Item(2,0, "Potion", "Potion", playerControls.player.getPlayerId(), false, false,10);
+        item.stack =1;
         playerControls.inventoryControls.addItem(item);
 
         Skill skill = new Skill(0,"Placeholder", "Holding",  playerControls.player.getPlayerId(), false);
@@ -54,16 +61,17 @@ public class TownActivity extends AppCompatActivity {
         String text = submissionAmount.getText().toString();
         if (!text.equals("")) {
             int amount = Integer.parseInt(text);
-            int[] gold = new int[]{playerControls.player.getGold(), playerControls.player.getBankGold()};
             if (bankSwitch.isChecked()) {
-                amount = Math.min(amount, gold[1]);
-                gold[0] += amount;
-                gold[1] -= amount;
-            } else {
-                amount = Math.min(amount, gold[0]);
-                gold[0] -= amount;
-                gold[1] += amount;
+                amount = Math.min(amount, playerControls.player.getBankGold());
+                playerControls.player.setGold(playerControls.player.getGold() + amount);
+                playerControls.player.setBankGold(playerControls.player.getBankGold() - amount);
             }
+            else {
+                amount = Math.min(amount, playerControls.player.getGold());
+                playerControls.player.setGold(playerControls.player.getGold() - amount);
+                playerControls.player.setBankGold(playerControls.player.getBankGold() + amount);
+            }
+            playerControls.player.updatePlayer(playerControls.player);
         }
         playerControls.updateHeader();
         setUpBankDisplay(null);

@@ -2,7 +2,9 @@ package thedigialex.simplerpg;
 
 import androidx.room.Entity;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class InventoryControls {
@@ -17,16 +19,17 @@ public class InventoryControls {
         this.maxInventorySize = maxInventorySize;
     }
     public void addItem(Item item) {
+        boolean added = false;
         for (Item existingItem : items) {
             if (existingItem.getItemKey()  == item.getItemKey()) {
                 if (existingItem.getStack() < existingItem.getMaxStack()) {
                     existingItem.setStack(existingItem.getStack() + 1);
                     updateItem(existingItem);
+                    added = true;
                 }
-                break;
             }
         }
-        if (maxInventorySize > items.size()) {
+        if (maxInventorySize > items.size() && !added) {
             new Thread(() -> appDatabase.itemDao().insert(item)).start();
             items.add(item);
         }
@@ -62,5 +65,11 @@ public class InventoryControls {
             }
         }
         return equippedItems;
+    }
+    public List<Item> getSortedItemsBasedOn(String sort) {
+        Comparator<Item> customComparator = Comparator.comparing(item -> !item.getItemType().equals(sort));
+        return items.stream()
+                .sorted(customComparator)
+                .collect(Collectors.toList());
     }
 }

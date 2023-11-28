@@ -15,7 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlayerFragmentItem extends Fragment {
     TextView[] topTextViews;
@@ -39,13 +42,18 @@ public class PlayerFragmentItem extends Fragment {
         bottomTextViews = new TextView[size];
         itemImageViews = new ImageView[size];
         setUpButtons(rootView);
-        items = playerControls.inventoryControls.items;
-        regenerateInventoryView(mainLayout, inflater, "Equipped");
+        regenerateInventoryView(mainLayout, inflater, "");
         return rootView;
     }
     private void regenerateInventoryView(LinearLayout mainLayout, LayoutInflater inflater, String sortBy) {
         mainLayout.removeAllViews();
         sortDirection = !sortDirection;
+        if(sortBy.equals("")) {
+            items = playerControls.inventoryControls.items;
+        }
+        else {
+            items = playerControls.inventoryControls.getSortedItemsBasedOn(sortBy);
+        }
         for (int i = 0; i < items.size(); i++) {
             View slotLayout = inflater.inflate(R.layout.inventory_slot, mainLayout, false);
             topTextViews[i] = slotLayout.findViewById(R.id.topTextView);
@@ -57,7 +65,7 @@ public class PlayerFragmentItem extends Fragment {
             itemImageViews[i].setOnClickListener(v -> showItemDetailView(items.get(finalI)));
             bottomTextViews[i] = slotLayout.findViewById(R.id.bottomTextView);
             topTextViews[i].setText(items.get(i).getItemName());
-            String text = "Amount: " + items.get(i).getItemValue();
+            String text = "Amount: " + items.get(i).getStack();
             bottomTextViews[i].setText(text);
             mainLayout.addView(slotLayout);
         }
@@ -71,13 +79,13 @@ public class PlayerFragmentItem extends Fragment {
        });
        LinearLayout sortButtonContainer = rootView.findViewById(R.id.SortButtonContainer);
        Button EquipSortButton = new Button(playerControls.context);
-       EquipSortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "Equipped"));
+       EquipSortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "Weapon"));
        sortButtonContainer.addView(EquipSortButton);
        Button PriceSortButton = new Button(playerControls.context);
-       PriceSortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "Price"));
+       PriceSortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "CraftMaterial"));
        sortButtonContainer.addView(PriceSortButton);
        Button RaritySortButton = new Button(playerControls.context);
-       RaritySortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "Rarity"));
+       RaritySortButton.setOnClickListener(v -> regenerateInventoryView(requireView().findViewById(R.id.mainLayout), LayoutInflater.from(requireContext()), "Potion"));
        sortButtonContainer.addView(RaritySortButton);
     }
     public void showItemDetailView(Item item) {

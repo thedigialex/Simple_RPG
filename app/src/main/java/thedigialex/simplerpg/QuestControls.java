@@ -51,8 +51,6 @@ public class QuestControls {
             }
         }
     }
-
-
     public void checkQuestCompletion(Quest quest) {
         player.setGold(player.getGold() + 5);
         player.updatePlayer(player);

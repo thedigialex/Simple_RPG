@@ -24,7 +24,7 @@ public class HeaderControls {
         playerLevel = headerView.findViewById(R.id.player_level);
         levelProgressBarHeader = headerView.findViewById(R.id.levelProgressBarHeader);
     }
-    public void setUpViews(String name, int gold, int resourceID, int level,int exp, String raceAndClass) {
+    public void setUpViews(String name, int gold, int resourceID, int level, int exp, String raceAndClass) {
         //profileImage.setImageResource(resourceID);
         playerName.setText(name);
         updateHeader("Gold",gold+"");
