@@ -12,10 +12,11 @@ public class HeaderControls {
     TextView playerGold;
     ProgressBar levelProgressBarHeader;
     View headerView;
+    Player player;
 
-    public HeaderControls(View headerView) {
+    public HeaderControls(View headerView, Player player) {
         this.headerView = headerView;
-        initViews();
+        this.player = player;
     }
     public void initViews() {
         profileImage = headerView.findViewById(R.id.profile_image);
@@ -23,12 +24,15 @@ public class HeaderControls {
         playerGold = headerView.findViewById(R.id.player_money);
         playerLevel = headerView.findViewById(R.id.player_level);
         levelProgressBarHeader = headerView.findViewById(R.id.levelProgressBarHeader);
+        setUpViews();
     }
-    public void setUpViews(String name, int gold, int resourceID, int level, int exp, String raceAndClass) {
+    public void setUpViews() {
+        String nameAndTitle = player.getTitle() + " " + player.getName();
+        String raceAndClass = player.getRace() + " " + player.getJob();
         //profileImage.setImageResource(resourceID);
-        playerName.setText(name);
-        updateHeader("Gold",gold+"");
-        updateHeader("Exp",level+","+exp+","+raceAndClass);
+        playerName.setText(player.getName());
+        updateHeader("Gold",player.getGold()+"");
+        updateHeader("Exp",player.getLevel()+","+player.getExp()+","+raceAndClass);
     }
     public void updateHeader(String view, String value) {
         switch (view) {

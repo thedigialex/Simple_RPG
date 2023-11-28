@@ -9,11 +9,9 @@ public class FooterControls {
     Button leftButton;
     Button middleButton;
     Button rightButton;
-    int playerId;
     View footerView;
     Activity activity;
-    public FooterControls(View footerView, int playerId, Activity activity, String currentLocation) {
-        this.playerId = playerId;
+    public FooterControls(View footerView, Activity activity, String currentLocation) {
         this.footerView = footerView;
         this.activity = activity;
         initViews(currentLocation);
@@ -45,7 +43,6 @@ public class FooterControls {
         leftButton.setOnClickListener(v -> {
             if(!currentLocation.equals("Player")) {
                 Intent intent = new Intent(activity, PlayerInfoActivity.class);
-                intent.putExtra("playerId", playerId);
                 activity.startActivity(intent);
                 activity.finish();
             }
@@ -53,7 +50,6 @@ public class FooterControls {
         middleButton.setOnClickListener(v -> {
             if(!currentLocation.equals("Town")) {
                 Intent intent = new Intent(activity, TownActivity.class);
-                intent.putExtra("playerId", playerId);
                 activity.startActivity(intent);
                 activity.finish();
             }
@@ -61,7 +57,6 @@ public class FooterControls {
         rightButton.setOnClickListener(v -> {
             if(!currentLocation.equals("Adventure")) {
                 Intent intent = new Intent(activity, AdventureActivity.class);
-                intent.putExtra("playerId", playerId);
                 activity.startActivity(intent);
                 activity.finish();
             }

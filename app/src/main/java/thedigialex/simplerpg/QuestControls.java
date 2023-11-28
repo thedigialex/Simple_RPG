@@ -13,17 +13,22 @@ public class QuestControls {
     List<Quest> quests;
     Context context;
     Player player;
+    HeaderControls headerControls;
     View itemView;
     ConstraintLayout PopUpMenu;
     LinearLayout PopUpLinearLayout;
     LayoutInflater inflater;
-    public QuestControls(Context context, Player player) {
+    AppDatabase appDatabase;
+    public QuestControls(Context context, Player player, HeaderControls headerControls, AppDatabase appDatabase) {
         this.context = context;
         this.player = player;
+        this.headerControls = headerControls;
+        this.appDatabase = appDatabase;
     }
-    public void addQuestsSlot() {
+    public void addQuestsSlot(Boolean completed) {
+        PopUpLinearLayout.removeAllViews();
         for (Quest quest : quests) {
-            if(player.getLevel() >= quest.getLevelRequirement()) {
+            if(player.getLevel() >= quest.getLevelRequirement() && quest.getIsCompleted() == completed) {
                 itemView = inflater.inflate(R.layout.quest_slot, null);
                 LinearLayout HiddenLayout = itemView.findViewById(R.id.HiddenLayout);
                 HiddenLayout.setVisibility(View.GONE);
@@ -52,10 +57,12 @@ public class QuestControls {
         }
     }
     public void checkQuestCompletion(Quest quest) {
-        player.setGold(player.getGold() + 5);
+        player.setGold(player.getGold() + quest.getRewardGold());
         player.updatePlayer(player);
+        quest.setIsCompleted(true);
+        new Thread(() -> appDatabase.questDao().update(quest)).start();
+        headerControls.setUpViews();
     }
-
     public String questTypeToString(int id) {
         String questType;
         switch (id) {

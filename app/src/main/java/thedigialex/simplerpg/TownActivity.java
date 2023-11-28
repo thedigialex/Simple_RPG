@@ -33,7 +33,7 @@ public class TownActivity extends AppCompatActivity {
         playerControls.createQuestControls(getLayoutInflater(), findViewById(R.id.PopUpLinearLayout), findViewById(R.id.PopUpMenu));
         if(!menuOpen){
             whichPopUpToShow(1);
-            playerControls.questControls.addQuestsSlot();
+            playerControls.questControls.addQuestsSlot(false);
         }
     }
     public void showBank(View view) {
@@ -73,7 +73,7 @@ public class TownActivity extends AppCompatActivity {
             }
             playerControls.player.updatePlayer(playerControls.player);
         }
-        playerControls.updateHeader();
+        playerControls.headerControls.setUpViews();
         setUpBankDisplay(null);
         submissionAmount.setText("");
     }
@@ -109,6 +109,13 @@ public class TownActivity extends AppCompatActivity {
                 setUpBankDisplay(null);
                 break;
         }
+    }
+    public void showQuestButton(View view) {
+        boolean completed = false;
+        if(view.getId() ==  R.id.QuestButtonCompleted) {
+            completed = true;
+        }
+        playerControls.questControls.addQuestsSlot(completed);
     }
     public void ClosePopUpMenu(View view) {
         menuOpen = false;

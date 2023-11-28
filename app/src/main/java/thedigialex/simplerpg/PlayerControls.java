@@ -26,15 +26,15 @@ public class PlayerControls {
 
     public PlayerControls(int playerId, View headerView, View footerView, Activity activity, Context context, String currentLocation) {
         this.context = context;
-        headerControls = new HeaderControls(headerView);
-        footerControls = new FooterControls(footerView, 0, activity, currentLocation);
+        footerControls = new FooterControls(footerView, activity, currentLocation);
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "simpleRPGDatabase").build();
         executor.execute(() -> {
             player = appDatabase.playerDao().getPlayerById(playerId);
             player.appDatabase = appDatabase;
             activity.runOnUiThread(() -> executor.execute(() -> {
+                headerControls = new HeaderControls(headerView, player);
                 inventoryControls = new InventoryControls(appDatabase.itemDao().getItemsByPlayerId(playerId), appDatabase.skillDao().getSkillsByPlayerId(playerId), appDatabase, player.getInventorySize());
-                questControls = new QuestControls(context, player);
+                questControls = new QuestControls(context, player, headerControls, appDatabase);
                 questControls.quests = appDatabase.questDao().getQuestsByPlayerId(player.getPlayerId());
                 activity.runOnUiThread(() -> executor.execute(() -> activity.runOnUiThread(() -> setUp(currentLocation))));
             }));
@@ -49,17 +49,11 @@ public class PlayerControls {
     public void setUp(String currentLocation) {
         headerControls.initViews();
         footerControls.initViews(currentLocation);
-        updateHeader();
     }
-    public void createQuestControls( LayoutInflater inflater, LinearLayout PopUpLinearLayout, ConstraintLayout PopUpMenu) {
+    public void createQuestControls(LayoutInflater inflater, LinearLayout PopUpLinearLayout, ConstraintLayout PopUpMenu) {
         questControls.inflater = inflater;
         questControls.PopUpLinearLayout = PopUpLinearLayout;
         questControls.PopUpMenu = PopUpMenu;
-    }
-    public void updateHeader() {
-        String nameAndTitle = player.getTitle() + " " + player.getName();
-        String raceAndClass = player.getRace() + " " + player.getJob();
-        headerControls.setUpViews(nameAndTitle, player.getGold(), 0, player.getLevel(), player.getExp(), raceAndClass);
     }
     public int[] getPlayerStats() {
         int[] stats = new int[9];
